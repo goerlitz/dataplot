@@ -1,2 +1,2 @@
-# fast-data-insights
+# dataplot
 An opinionated library to analyze and visualize datasets

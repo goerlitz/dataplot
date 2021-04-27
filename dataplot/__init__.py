@@ -1,1 +1,1 @@
-import dataplot
+import dataplot.dataplot

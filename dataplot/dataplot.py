@@ -47,7 +47,6 @@ def plot_cat2(df: pd.DataFrame, cols: list, title: str = None, stacked=True, sho
     # compute total count
     points = [p.get_bbox().get_points() for p in ax.patches]
     count = int(sum([p[1, 0] - p[0, 0] for p in points]))
-    print(count)
 
     # add grid lines
     ax.xaxis.grid(True, linestyle='--', zorder=1)

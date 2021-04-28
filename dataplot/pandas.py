@@ -19,7 +19,7 @@ def plot_cat(df: pd.DataFrame, col: str, title: str = None, figsize=None):
     return fig
 
 
-def plot_cat2(df: pd.DataFrame, cols: list, title: str = None, stacked=True, show=None, figsize=None, ax=None):
+def plot_cat2(df: pd.DataFrame, cols: list, title: str = None, stacked=True, annotate=None, figsize=None, ax=None):
     """Plot categories with subsets."""
 
     # todo: check that we only get two columns
@@ -52,19 +52,22 @@ def plot_cat2(df: pd.DataFrame, cols: list, title: str = None, stacked=True, sho
     ax.xaxis.grid(True, linestyle='--', zorder=1)
     ax.xaxis.set_major_formatter(thousand_format)
 
-    if show in ["value", "percent"]:
+    if annotate in ["value", "percent"]:
         """https://stackoverflow.com/questions/33179122/seaborn-countplot-with-frequencies"""
         for p in ax.patches:
             points = p.get_bbox().get_points()
             x, y = points[1, 0], points[:, 1].mean()
-            halign = "right" if x / max_val > 0.1 else "left"
 
-            if show == "value":
+            color, halign = "white", "right"
+            if x / max_val < 0.1:
+                color, halign = p.get_fc(), "left"
+
+            if annotate == "value":
                 s = f"{int(x)}"
-            if show == "percent":
+            if annotate == "percent":
                 s = f"{x / count:.1%}"
 
-            ax.annotate(s, (x, y), ha=halign, va="center")
+            ax.annotate(s, (x, y), ha=halign, va="center", color=color)
 
     ax.set_ylabel(None)
 

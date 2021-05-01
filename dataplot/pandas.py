@@ -148,7 +148,7 @@ def histplot(df: pd.DataFrame, col: str, by: str = None, bins: int = 10, title: 
             mean = values_s.mean()
             ax.axvline(mean, color="red", linestyle=":", lw=1.5)
             # format mean value for int and float
-            meanstr = f"{int(mean):,}" if mean.is_integer() else f"{mean:.1f}"
+            meanstr = f"{int(mean):,}" if pd.api.types.is_integer_dtype(values_s) else f"{mean:.1f}"
             ax.annotate(f" mean={meanstr}", (mean, 0.9 * ax.get_ylim()[1]), ha="left", va="top", color="red",
                         size=rcParams['axes.labelsize'])
 
